@@ -1,0 +1,80 @@
+% realistic_dlhm - Realistic Digital Lensless Holography Simulation Model
+% This function simulates digital lensless holography and returns the
+% hologram and reference wave.
+
+% Input:
+%   sample   - Input complex field (wavefront) to be simulated            
+%   L        - Distance from the point source to the hologram plane
+%   z        - Distance from the point source to the sample plane
+%   W_c      - Width of the sensor
+%   lambda   - Wavelength of the light
+
+% Output:
+%   holo     - Simulated hologram
+%   ref      - Reference wave
+
+% Author: mariajlopera, mloper23@eafit.edu.co
+% Date: 06/12/2023
+
+function [holo, ref] = realistic_dlhm(sample, L, z, W_c, lambda)    
+    % Size of the input sample
+    [N, M] = size(sample);
+    
+    % Magnification factor
+    Mag = L / z;
+    W_s = W_c / Mag;
+
+    
+    % Re-sampled and magnified sample
+    % sample_M = imresize(sample,Mag);
+    % sample = sample_M(N*Mag/2-N/2:N*Mag/2+N/2-1, M*Mag/2-M/2:M*Mag/2+M/2-1);
+        
+    
+    % Wave number
+    k = 2 * pi / lambda;
+    
+    % Spatial coordinates in the camera's plane
+    x = linspace(-W_c / 2, W_c / 2, N);
+    y = linspace(-W_c / 2, W_c / 2, M);
+    [u, v] = meshgrid(x, y);
+    
+    % Radial distribution spherical wavefront source
+    r = sqrt(u .^ 2 + v .^ 2 + (L - z) .^ 2);
+    r = r / max(max(r));
+    
+    % Spatial frequency coordinates at the sample's plane
+    
+    df = 1 / W_s;
+    [fx, fy] = meshgrid(-N/2*df:df:N/2*df-df, -M/2*df:df:M/2*df-df);
+    
+    % Complex exponential term for the diffraction
+    E = exp((-1i * (L - z) * sqrt((k^2 - 4 * pi^2 * (fx.^2 + fy.^2)))));
+    
+    % ASM 
+    Uz = ifts(fts(sample) .* E);
+    holo = abs(Uz).^2;
+
+    % Finding the maximum distortion
+    Max_D = abs((L + abs(sqrt(W_c^2 / 2 + L^2) - L)) / z - L / z);
+    disp(Max_D)
+
+    % Distort the hologram
+    k = [N 0 N/2; 0 M M/2; 0 0 1];
+    radialDistortion = [-Max_D 0]; 
+    cameraParams = cameraParameters("K", k, "RadialDistortion", radialDistortion);
+    holo = undistortImage(holo, cameraParams);
+
+    % Normalize the hologram
+    holo = holo - min(min(abs(holo)));
+    holo = holo / max(max(holo));
+    holo = holo + 1 ./ r;
+    holo = holo - min(min(abs(holo)));
+    holo = holo / max(max(holo));
+    holo = holo * 2^8;
+    holo = round(holo, 0);
+    
+    % Reference wave
+    ref = 1 ./ r;
+    ref = ref - min(min(abs(ref)));
+    ref = ref / max(max(ref));
+end
