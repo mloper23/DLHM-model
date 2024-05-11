@@ -16,7 +16,8 @@
 % Author: mariajlopera, mloper23@eafit.edu.co
 % Date: 06/12/2023
 
-function [holo, ref] = realistic_dlhm(sample, L, z, W_c, lambda)    
+function [holo, ref] = realistic_dlhm(sample, dx_in, L, z, W_c, dx_out, lambda, x0, y0)    
+
     % Size of the input sample
     [N, M] = size(sample);
     
@@ -26,10 +27,21 @@ function [holo, ref] = realistic_dlhm(sample, L, z, W_c, lambda)
 
     
     % Re-sampled and magnified sample
-    % sample_M = imresize(sample,Mag);
-    % sample = sample_M(N*Mag/2-N/2:N*Mag/2+N/2-1, M*Mag/2-M/2:M*Mag/2+M/2-1);
-        
-    
+    if dx_in ~= 0
+        if (~exist('opt', 'var'))
+            x0 = 0;
+            y0 = 0;
+        end
+        sample = sample(N/2-N/(Mag*2):N/2+N/(Mag*2)-1, M/2-M/(Mag*2):M/2+M/(2*Mag)-1);    
+        [N_s, ~] = size(sample);    
+        rs = N_s / (W_c / dx_out);
+        sample = imresize(sample, 1/rs);
+    else
+        rs = N / (W_c / dx_out);
+        sample = imresize(sample, 1/rs);
+    end
+
+    [N, M] = size(sample);
     % Wave number
     k = 2 * pi / lambda;
     
