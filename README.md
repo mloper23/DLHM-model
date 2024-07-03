@@ -1,4 +1,4 @@
-# Realistic DLHM Model
+# DLHM Model
 
 
 ## Overview
