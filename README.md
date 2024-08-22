@@ -11,6 +11,9 @@ This repository contains the implementation of the Realistic DLHM (Digital Lensl
   - *Applied Optics Group, School of Applied Science and Engineering, Universidad EAFIT, Medellín, Colombia*
   - *Email: mloper23@eafit.edu.co*
 
+- **Carlos Buitrago**<sup>3</sup>
+  - *Universidad Nacional de Colombia Medellín, School of Physics, A.A: 3840-Medellín-050034, Colombia*
+
 - **Jorge García-Sucerquia**<sup>3</sup>
   - *Universidad Nacional de Colombia Medellín, School of Physics, A.A: 3840-Medellín-050034, Colombia*
 
@@ -26,31 +29,30 @@ This repository contains the implementation of the Realistic DLHM (Digital Lensl
 
 ## Features
 
-- **Realistic DLHM Model:** Simulate DLHM holograms using the Realistic DLHM model.
+- **DLHM Model:** Simulate DLHM holograms.
 - **Dual Language Support:** The model is implemented in both MATLAB and Python to cater to users of different preferences.
-- **Example Holograms:** Explore the `experimental_holograms` folder containing holographic data used in the associated paper.
 
 ## Usage
 
 ### MATLAB
 
-1. Open `main_realistic_dlhm.m` in MATLAB.
+1. Open `main_dlhm.m` in MATLAB.
 2. Adjust parameters if needed.
 3. Run the script.
 
 ### Python
 
-1. Open `main_realistic_dlhm.py` in a Python environment.
+1. Open `main_dlhm.py` in a Python environment.
 2. Configure the environment and later the parameters as required.
 3. Execute the script.
 
-## Experimental Holograms
+## data
 
-The `experimental_holograms` folder includes holographic data used in the associated paper. For more details on the experiments and data, refer to the paper. A DOI link will be provided once it becomes available.
+The `data` folder includes a digital version of the Benchmark USAF phase plate for testing. For more details on the validation data, refer to the paper. A DOI link will be provided once it becomes available.
 
 ## Paper
 
-More information about the Realistic DLHM model and experimental results can be found in the associated paper. The DOI link will be added to this README once it is available.
+More information about the DLHM model and experimental results can be found in the associated paper. The DOI link will be added to this README once it is available.
 
 ## Contributions
 
