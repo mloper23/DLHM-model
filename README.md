@@ -9,7 +9,8 @@ This repository contains the implementation of the Realistic DLHM (Digital Lensl
 
 - **Maria J. Lopera***<sup>1,2</sup>
   - *Applied Optics Group, School of Applied Science and Engineering, Universidad EAFIT, Medellín, Colombia*
-  - *Email: mloper23@eafit.edu.co*
+  - *Brussels Photonics, Department of Applied Physics and Photonics, Vrije Universiteit Brussel and Flanders Make, Pleinlaan 2, B-1050 Brussels, Belgium*
+  - *Email: mloper23@eafit.edu.co, maria.josef.lopera.acosta@vub.be*
 
 - **Carlos Buitrago**<sup>3</sup>
   - *Universidad Nacional de Colombia Medellín, School of Physics, A.A: 3840-Medellín-050034, Colombia*
