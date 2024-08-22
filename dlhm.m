@@ -20,7 +20,7 @@
 % maria.josef.lopera.acosta@vub.be
 % Date: 06/12/2023
 
-function holo = realistic_dlhm(sample, dx_in, L, z, W_c, dx_out, lambda, x0, y0, NA_s)
+function holo = dlhm(sample, dx_in, L, z, W_c, dx_out, lambda, x0, y0, NA_s)
 
     % Uncomment for default values
     % % Default initialization in case optional values are not provided
