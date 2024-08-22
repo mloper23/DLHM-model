@@ -1,5 +1,5 @@
 # Main script for simulating realistic digital lensless holography
-from realistic_dlhm import *
+from dlhm import *
 import plotly.express as px
 # Load a sample (convert to grayscale and normalize)
 intensityImage = np.array(cv.imread('data/BenchmarkTarget.png', cv.IMREAD_GRAYSCALE)).astype(float) / 255

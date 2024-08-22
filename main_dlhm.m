@@ -35,7 +35,7 @@ dx = 1.85e-6; % Pixel size on the sensor in meters
 
 % Call the realistic_dlhm function to simulate digital lensless holograms
 % Use numerical aperture of 0.05 for the source
-hologram = realistic_dlhm(sample, 1.85e-6, L, z, W_c, dx, lambda, 1, 1, 0.1);
+hologram = dlhm(sample, 1.85e-6, L, z, W_c, dx, lambda, 1, 1, 0.1);
 
 % Display the simulated hologram
 figure(1);
