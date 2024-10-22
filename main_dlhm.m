@@ -26,8 +26,8 @@ title('Phase of the Sample');
 %% Simulation parameters setup
 
 % Set the system parameters for the holography simulation
-L = 4e-3;     % Distance from the source to the hologram plane in meters
-z = 1e-3;     % Distance from the source to the sample plane in meters
+L = 8e-3;     % Distance from the source to the hologram plane in meters
+z = 2e-3;     % Distance from the source to the sample plane in meters
 W_c = 5.55e-3; % Width of the sensor in meters
 dx = 1.85e-6; % Pixel size on the sensor in meters
 
@@ -44,4 +44,3 @@ colormap gray;
 axis image;
 title('Simulated Hologram');
 
-% End of main script

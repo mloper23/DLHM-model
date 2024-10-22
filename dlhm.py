@@ -102,10 +102,10 @@ def dlhm(sample, dx_in, L, z, W_c, dx_out, wavelength, x0=0, y0=0, NA_s=0):
     # Distortion of the coordinates
     # Calculate maximum distortion due to distance differences
     Mag_max = np.sqrt(W_c ** 2 / 2 + L ** 2) / z
-
+    Dist_max = np.abs(Mag_max - Mag)
     # Apply distortion to the hologram
     camMat = np.array([[P, 0, P / 2], [0, Q, Q / 2], [0, 0, 1]])
-    distCoeffs = np.array([-Mag_max / (2 * Mag), 0, 0, 0, 0])  # Radial distortion parameters
+    distCoeffs = np.array([-Dist_max / (2 * Mag), 0, 0, 0, 0])  # Radial distortion parameters
     holo = cv.undistort(holo.astype(np.float32), camMat, distCoeffs)
 
     # Normalize and post-process the hologram
