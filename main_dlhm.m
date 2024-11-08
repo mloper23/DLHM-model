@@ -1,9 +1,12 @@
 % Main script for simulating realistic digital lensless holograms
+% @mariajlopera
+% For questions contact mloper23@eafit.edu.co;
+% maria.josef.lopera.acosta@vub.be
 
 % Load and preprocess the input image
 % Convert the image to grayscale and normalize its intensity
 intensityImage = im2double(rgb2gray(imread('./data/BenchmarkTarget.png')));
-
+intensityImage = imresize(intensityImage, 0.3);
 % Define the wavelength of the light used in the simulation
 lambda = 532e-9;  % Wavelength in meters (532 nm)
 
@@ -14,7 +17,6 @@ h_max = 350e-9;  % in meters
 % The wavefront is based on the phase modulation by the sample
 % The refractive index contrast here is 1.51 (RI of sample) - 1 (RI of medium)
 sample = exp(-1i * 2 * pi * (1.51 - 1) * h_max * intensityImage / lambda);
-
 % Display the phase of the sample to verify
 figure(1);
 imagesc(angle(sample))
@@ -34,13 +36,17 @@ dx = 1.85e-6; % Pixel size on the sensor in meters
 % Repeated definition of lambda (already defined earlier)
 
 % Call the realistic_dlhm function to simulate digital lensless holograms
-% Use numerical aperture of 0.05 for the source
-hologram = dlhm(sample, 1.85e-6, L, z, W_c, dx, lambda, 1, 1, 0.1);
+it = 20;
+zs = linspace(7e-3,7e-3,it);
 
-% Display the simulated hologram
-figure(1);
-imagesc(hologram);
-colormap gray;
-axis image;
-title('Simulated Hologram');
+for i = 1:it
+    hologram = dlhm(sample, 1.85e-6, L, zs(i), W_c, dx, lambda, 1, 1, 0);
+    
+    % Display the simulated hologram
+    figure(1);
+    imagesc(hologram);
+    colormap gray;
+    axis image;
+    title('Simulated Hologram');
+end
 

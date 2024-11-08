@@ -134,3 +134,36 @@ def resize(B, dx, dy):
     img_r = cv.resize(img, (int(dx), int(dy)), interpolation=cv.INTER_LINEAR)
     B_r = r_r + 1j * img_r
     return B_r
+
+
+def point_src(N, M, z, x0, y0, lambda_, dx):
+    """
+    Generates a point source illumination centered at (x0, y0)
+    and observed in a plane at distance z.
+    """
+    dy = dx  # Set y-pitch same as x-pitch
+    m, n = np.meshgrid(np.arange(-M / 2, M / 2), np.arange(-N / 2, N / 2))  # Coordinate mesh grid
+    k = 2 * np.pi / lambda_  # Wavenumber
+    r = np.sqrt(z ** 2 + (m * dx - x0) ** 2 + (n * dy - y0) ** 2)  # Radial distance from source
+    return np.exp(1j * k * r) / r  # Complex field with spherical phase
+
+
+def angular_spectrum(A, Wx, Wy, k, z):
+    """
+    Propagates field A using angular spectrum method.
+    """
+    P, Q = A.shape  # Get size of input field
+    dfx = 1 / Wx  # Frequency sampling interval in x
+    dfy = 1 / Wy  # Frequency sampling interval in y
+
+    # Generate frequency grid using linspace
+    fx = np.linspace(-P/2 * dfx, (P/2 - 1) * dfx, P)
+    fy = np.linspace(-Q/2 * dfy, (Q/2 - 1) * dfy, Q)
+    fx, fy = np.meshgrid(fx, fy)
+
+
+    # Complex exponential term for propagation
+    E = np.exp(-1j * z * np.sqrt(k ** 2 - (2 * np.pi * fx) ** 2 - (2 * np.pi * fy) ** 2))
+
+    # Perform Fourier transform, apply propagation, and inverse Fourier transform
+    return ifts(fts(A) * E)
