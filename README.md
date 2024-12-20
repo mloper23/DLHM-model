@@ -53,7 +53,7 @@ The `data` folder includes a simulated hologram image, which can be used with th
 
 ## Paper
 
-More information about the DLHM model and experimental results can be found in the associated paper. The DOI link will be added to this README once it is available.
+Maria J. Lopera, Carlos Buitrago-Duque, Jorge Garcia-Sucerquia, Yunfeng Nie, Heidi Ottevaere, and Carlos Trujillo, "Simulation of digital lensless holographic microscopy holograms: a physics-image processing approach," Opt. Express 32, 48509-48524 (2024)
 
 ## Contributions
 
